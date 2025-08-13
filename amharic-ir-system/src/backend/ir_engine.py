@@ -7,8 +7,8 @@ STOPWORDS_PATH = os.path.join(os.path.dirname(__file__), "amharic-stop-words.jso
 DOCUMENTS_PATH = os.path.join(os.path.dirname(__file__), "../data/documents")
 
 class AmharicIRSystem:
-    def __init__(self, documents_folder=DOCUMENTS_PATH, stopwords_path=STOPWORDS_PATH):
-        self.documents_folder = documents_folder
+    def __init__(self, corpus_folder=DOCUMENTS_PATH, stopwords_path=STOPWORDS_PATH):
+        self.documents_folder = corpus_folder
         self.stopwords = load_stopwords(stopwords_path)
         self.documents = {}  # filename -> content
         self.doc_names = []  # list of filenames
@@ -26,6 +26,7 @@ class AmharicIRSystem:
     def _load_and_prepare(self):
         for filename in os.listdir(self.documents_folder):
             if filename.endswith('.txt'):
+                print(f"Loading {filename}...")  # Add this line
                 with open(os.path.join(self.documents_folder, filename), 'r', encoding='utf-8') as f:
                     content = f.read()
                     self.documents[filename] = content
